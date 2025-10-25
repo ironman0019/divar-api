@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string('name')->nullable()->change();
             $table->string('email')->nullable()->change();
-            $table->tinyInteger('user_type')->default(0);
+            $table->tinyInteger('is_admin')->default(0);
             $table->tinyInteger('is_active')->default(0);
             $table->unsignedBigInteger('city_id')->nullable();
             $table->datetime('mobile_verified_at')->nullable();
