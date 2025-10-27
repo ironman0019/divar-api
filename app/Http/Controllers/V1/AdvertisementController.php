@@ -50,14 +50,27 @@ class AdvertisementController extends Controller
     /**
      * Display the specified advertisement.
      */
-    public function show(string $slug)
+    public function show(Advertisement $advertisement)
     {
         try {
-            $advertisement = $this->advertisementService->getAdvertisementBySlug($slug);
-
-            if (!$advertisement) {
+            // Check if advertisement is active and published
+            if ($advertisement->status !== 2 || !$advertisement->published_at || $advertisement->published_at > now()) {
                 return $this->failed(null, __('messages.advertisements.not_found'), 404);
             }
+
+            // Check if advertisement is not expired
+            if ($advertisement->expired_at && $advertisement->expired_at <= now()) {
+                return $this->failed(null, __('messages.advertisements.not_found'), 404);
+            }
+
+            // Load relationships
+            $advertisement->load([
+                'city',
+                'category',
+                'user',
+                'galleries',
+                'categoryValues.categoryAttribute'
+            ]);
 
             // Increment view count
             $this->advertisementService->incrementView($advertisement);
