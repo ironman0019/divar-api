@@ -30,25 +30,6 @@ class AdvertisementService
     }
 
     /**
-     * Get single advertisement by slug with related data.
-     */
-    public function getAdvertisementBySlug(string $slug)
-    {
-        return Advertisement::where('slug', $slug)
-            ->active()
-            ->published()
-            ->notExpired()
-            ->with([
-                'city',
-                'category',
-                'user',
-                'galleries',
-                'categoryValues.categoryAttribute'
-            ])
-            ->first();
-    }
-
-    /**
      * Get related advertisements.
      */
     public function getRelatedAdvertisements(Advertisement $advertisement, int $limit = 6)
