@@ -45,7 +45,7 @@ Route::prefix('V1')->group(function() {
         Route::get('/search', [AdvertisementController::class, 'search'])->name('search');
         Route::get('/filters', [AdvertisementController::class, 'filters'])->name('filters');
         Route::get('/category/{categoryId}', [AdvertisementController::class, 'category'])->name('category');
-        Route::get('/{slug}', [AdvertisementController::class, 'show'])->name('show');
+        Route::get('/{advertisement}', [AdvertisementController::class, 'show'])->name('show');
     });
 
     // Category routes (public)
