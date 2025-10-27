@@ -6,6 +6,8 @@ use App\Http\Controllers\V1\Auth\AuthController;
 use App\Http\Controllers\V1\Auth\ProfileController;
 use App\Http\Controllers\V1\Auth\OTPLoginController;
 use App\Http\Controllers\V1\CityController;
+use App\Http\Controllers\V1\AdvertisementController;
+use App\Http\Controllers\V1\CategoryController;
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -36,6 +38,24 @@ Route::prefix('V1')->group(function() {
 
     // public routes
     Route::get('cities', [CityController::class, 'index'])->name('city.index.public');
+
+    // Advertisement routes (public)
+    Route::prefix('advertisements')->name('advertisements.')->group(function () {
+        Route::get('/', [AdvertisementController::class, 'index'])->name('index');
+        Route::get('/search', [AdvertisementController::class, 'search'])->name('search');
+        Route::get('/filters', [AdvertisementController::class, 'filters'])->name('filters');
+        Route::get('/category/{categoryId}', [AdvertisementController::class, 'category'])->name('category');
+        Route::get('/{slug}', [AdvertisementController::class, 'show'])->name('show');
+    });
+
+    // Category routes (public)
+    Route::prefix('categories')->name('categories.')->group(function () {
+        Route::get('/', [CategoryController::class, 'index'])->name('index');
+        Route::get('/hierarchy', [CategoryController::class, 'hierarchy'])->name('hierarchy');
+        Route::get('/{id}', [CategoryController::class, 'show'])->name('show');
+        Route::get('/{id}/attributes', [CategoryController::class, 'attributes'])->name('attributes');
+        Route::get('/{parentId}/children', [CategoryController::class, 'children'])->name('children');
+    });
 
 
     // authenticated routes
