@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             CategoryAttributeSeeder::class,
             CategoryValueSeeder::class,
             AdvertisementSeeder::class,
+            PromotionPriceSeeder::class,
         ]);
     }
 }
