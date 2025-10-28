@@ -107,6 +107,22 @@ class Advertisement extends Model
     }
 
     /**
+     * Get the payments for the advertisement.
+     */
+    public function payments(): HasMany
+    {
+        return $this->hasMany(\App\Models\Payment::class);
+    }
+
+    /**
+     * Get the featured advertisements for the advertisement.
+     */
+    public function featuredAdvertisements(): HasMany
+    {
+        return $this->hasMany(FeaturedAdvertisement::class);
+    }
+
+    /**
      * Scope a query to only include active advertisements.
      */
     public function scopeActive($query)
@@ -120,7 +136,7 @@ class Advertisement extends Model
     public function scopePublished($query)
     {
         return $query->whereNotNull('published_at')
-                    ->where('published_at', '<=', now());
+            ->where('published_at', '<=', now());
     }
 
     /**
@@ -130,8 +146,24 @@ class Advertisement extends Model
     {
         return $query->where(function ($q) {
             $q->whereNull('expired_at')
-              ->orWhere('expired_at', '>', now());
+                ->orWhere('expired_at', '>', now());
         });
+    }
+
+    /**
+     * Scope a query to only include ladder advertisements.
+     */
+    public function scopeLadder($query)
+    {
+        return $query->where('is_ladder', true);
+    }
+
+    /**
+     * Scope a query to only include special advertisements.
+     */
+    public function scopeSpecial($query)
+    {
+        return $query->where('is_special', true);
     }
 
     /**
@@ -217,6 +249,30 @@ class Advertisement extends Model
             });
         }
         return $query;
+    }
+
+    /**
+     * Check if advertisement is active.
+     */
+    public function isActive(): bool
+    {
+        return $this->status === 2;
+    }
+
+    /**
+     * Check if advertisement is published.
+     */
+    public function isPublished(): bool
+    {
+        return $this->published_at && $this->published_at <= now();
+    }
+
+    /**
+     * Check if advertisement is expired.
+     */
+    public function isExpired(): bool
+    {
+        return $this->expired_at && $this->expired_at <= now();
     }
 
     /**
