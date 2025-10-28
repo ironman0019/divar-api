@@ -6,6 +6,7 @@ use App\Models\Category\Category;
 use App\Models\Category\CategoryValue;
 use App\Models\City;
 use App\Models\User;
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -14,7 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Advertisement extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, Sluggable;
 
     protected $fillable = [
         'title',
@@ -50,6 +51,20 @@ class Advertisement extends Model
         'willing_to_trade' => 'boolean',
         'status' => 'integer',
     ];
+
+    /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'title'
+            ]
+        ];
+    }
 
     /**
      * Get the user that owns the advertisement.
