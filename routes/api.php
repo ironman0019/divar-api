@@ -2,12 +2,13 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\V1\CityController;
+use App\Http\Controllers\V1\PaymentController;
+use App\Http\Controllers\V1\CategoryController;
 use App\Http\Controllers\V1\Auth\AuthController;
 use App\Http\Controllers\V1\Auth\ProfileController;
-use App\Http\Controllers\V1\Auth\OTPLoginController;
-use App\Http\Controllers\V1\CityController;
 use App\Http\Controllers\V1\AdvertisementController;
-use App\Http\Controllers\V1\CategoryController;
+use App\Http\Controllers\V1\Auth\OTPLoginController;
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -38,6 +39,8 @@ Route::prefix('V1')->group(function() {
 
     // public routes
     Route::get('cities', [CityController::class, 'index'])->name('city.index.public');
+    // Payment callback route
+    Route::get('payment/callback', [PaymentController::class, 'verifyCallback'])->name('payment.callback');
 
     // Advertisement routes (public)
     Route::prefix('advertisements')->name('advertisements.')->group(function () {
@@ -66,6 +69,17 @@ Route::prefix('V1')->group(function() {
             Route::post('/', [AdvertisementController::class, 'store'])->name('store');
         });
 
+        // Payment routes
+        Route::prefix('payments')->name('payments.')->group(function () {
+            Route::get('promotion-prices', [PaymentController::class, 'getPromotionPrices'])->name('promotion-prices');
+            Route::get('advertisement-promotions', [PaymentController::class, 'getAdvertisementPromotions'])->name('advertisement-promotions');
+            Route::post('promote-advertisement', [PaymentController::class, 'initiatePromotion'])->name('promote-advertisement');
+            Route::get('status', [PaymentController::class, 'getPaymentStatus'])->name('status');
+            Route::get('history', [PaymentController::class, 'getPaymentHistory'])->name('history');
+        });
+
     });
+
+
 
 });
