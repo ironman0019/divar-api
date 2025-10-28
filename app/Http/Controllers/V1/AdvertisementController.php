@@ -6,19 +6,27 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\Advertisement\AdvertisementListResource;
 use App\Http\Resources\V1\Advertisement\AdvertisementResource;
 use App\Http\Services\AdvertisementService;
+use App\Services\ImageUploadService;
+use App\Http\Requests\V1\StoreAdvertisementRequest;
 use App\Models\Advertisement\Advertisement;
+use App\Models\Advertisement\Gallery;
+use App\Models\User;
 use App\Traits\HttpResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AdvertisementController extends Controller
 {
     use HttpResponse;
 
     protected AdvertisementService $advertisementService;
+    protected ImageUploadService $imageUploadService;
 
-    public function __construct(AdvertisementService $advertisementService)
+    public function __construct(AdvertisementService $advertisementService, ImageUploadService $imageUploadService)
     {
         $this->advertisementService = $advertisementService;
+        $this->imageUploadService = $imageUploadService;
     }
 
     /**
@@ -169,6 +177,81 @@ class AdvertisementController extends Controller
                 __('messages.success.data_retrieved')
             );
         } catch (\Exception $e) {
+            return $this->failed(null, __('messages.errors.server_error'), 500);
+        }
+    }
+
+    /**
+     * Store a newly created advertisement.
+     */
+    public function store(StoreAdvertisementRequest $request)
+    {
+        try {
+            DB::beginTransaction();
+
+            // Get authenticated user
+            $user = auth('api')->user();
+            
+            if (!$user) {
+                return $this->failed(null, __('messages.errors.unauthorized'), 401);
+            }
+
+            // Prepare advertisement data
+            $advertisementData = $request->validated();
+            $advertisementData['user_id'] = $user->id;
+            $advertisementData['status'] = 1; // Enable status
+
+            // Handle main image upload if provided
+            if ($request->hasFile('image')) {
+                $advertisementData['image'] = $this->imageUploadService->uploadImage($request->file('image'));
+            }
+
+            // Create advertisement
+            $advertisement = Advertisement::create($advertisementData);
+
+            // Handle gallery images upload
+            if ($request->hasFile('images')) {
+                $uploadedImages = $this->imageUploadService->uploadMultipleImages($request->file('images'));
+                
+                foreach ($uploadedImages as $imagePath) {
+                    Gallery::create([
+                        'advertisement_id' => $advertisement->id,
+                        'url' => $imagePath,
+                    ]);
+                }
+            }
+
+            // Handle category values if provided
+            if ($request->has('category_values') && !empty($request->category_values)) {
+                $advertisement->categoryValues()->attach($request->category_values);
+            }
+
+            // Load relationships for response
+            $advertisement->load([
+                'city',
+                'category',
+                'user',
+                'galleries',
+                'categoryValues.categoryAttribute'
+            ]);
+
+            DB::commit();
+
+            return $this->success([
+                'advertisement' => new AdvertisementResource($advertisement),
+            ], __('messages.advertisements.created'));
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            
+            // Clean up uploaded images if any error occurs
+            if (isset($uploadedImages)) {
+                $this->imageUploadService->removeMultipleImages($uploadedImages);
+            }
+            if (isset($advertisementData['image'])) {
+                $this->imageUploadService->removeImage($advertisementData['image']);
+            }
+
             return $this->failed(null, __('messages.errors.server_error'), 500);
         }
     }
