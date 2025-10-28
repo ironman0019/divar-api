@@ -34,7 +34,30 @@ class ImageUploadService {
         if(file_exists($file)) {
             unlink($file);
         }
+    }
 
+    /**
+     * Upload multiple images and return array of file paths
+     */
+    public function uploadMultipleImages($files, $name = null)
+    {
+        $uploadedFiles = [];
+        
+        foreach ($files as $file) {
+            $uploadedFiles[] = $this->uploadImage($file, $name);
+        }
+        
+        return $uploadedFiles;
+    }
+
+    /**
+     * Remove multiple images
+     */
+    public function removeMultipleImages($files)
+    {
+        foreach ($files as $file) {
+            $this->removeImage($file);
+        }
     }
 
 }
