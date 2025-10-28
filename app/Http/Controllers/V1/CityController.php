@@ -17,7 +17,7 @@ class CityController extends Controller
         $cities = City::all();
         return $this->success(
             CityResource::collection($cities),
-            'Cities retrieved successfully'
+            __('messages.cities.retrieved')
         );
     }
 }
