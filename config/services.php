@@ -34,5 +34,17 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
+    
+    'zarinpal' => [
+        'merchant_id' => env('ZARINPAL_MERCHANT_ID'),
+        'sandbox' => env('ZARINPAL_SANDBOX', true),
+        'callback_url' => env('ZARINPAL_CALLBACK_URL', 'http://localhost:8000/api/V1/payment/callback'),
+        'sandbox_url' => 'https://sandbox.zarinpal.com/pg/rest/WebGate/',
+        'production_url' => 'https://www.zarinpal.com/pg/rest/WebGate/',
+        'payment_url' => [
+            'sandbox' => 'https://sandbox.zarinpal.com/pg/StartPay/',
+            'production' => 'https://www.zarinpal.com/pg/StartPay/',
+        ],
+    ],
 
 ];
