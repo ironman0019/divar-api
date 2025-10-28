@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('advertisement_id');
             $table->unsignedBigInteger('payment_id');
+            $table->enum('type', ['ladder', 'special'])->comment('نوع تبلیغ: نردبان یا ویژه');
             $table->datetime('expires_at');
             $table->boolean('is_active')->default(true);
             $table->timestamps();
