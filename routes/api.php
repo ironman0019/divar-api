@@ -61,7 +61,10 @@ Route::prefix('V1')->group(function() {
     // authenticated routes
     Route::middleware('auth:sanctum')->group(function() {
 
-        //
+        // Advertisement management routes
+        Route::prefix('advertisements')->name('advertisements.')->group(function () {
+            Route::post('/', [AdvertisementController::class, 'store'])->name('store');
+        });
 
     });
 
