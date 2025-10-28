@@ -4,6 +4,7 @@ return [
     // Advertisement messages
     'advertisements' => [
         'retrieved' => 'آگهی‌ها با موفقیت دریافت شد',
+        'created' => 'آگهی با موفقیت ایجاد شد',
         'not_found' => 'آگهی مورد نظر یافت نشد',
         'details_retrieved' => 'جزئیات آگهی با موفقیت دریافت شد',
         'view_incremented' => 'تعداد بازدید آگهی افزایش یافت',
@@ -58,6 +59,7 @@ return [
 
     // Error messages
     'errors' => [
+        'unauthorized' => 'شما باید وارد سیستم شوید',
         'invalid_city' => 'شهر انتخاب شده نامعتبر است',
         'invalid_category' => 'دسته‌بندی انتخاب شده نامعتبر است',
         'invalid_price_range' => 'محدوده قیمت نامعتبر است',
