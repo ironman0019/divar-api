@@ -2,31 +2,27 @@
 
 namespace App\Http\Controllers\V1;
 
-use App\Http\Controllers\Controller;
-use App\Http\Resources\V1\Advertisement\AdvertisementListResource;
-use App\Http\Resources\V1\Advertisement\AdvertisementResource;
-use App\Http\Services\AdvertisementService;
-use App\Services\ImageUploadService;
-use App\Http\Requests\V1\StoreAdvertisementRequest;
-use App\Models\Advertisement\Advertisement;
-use App\Models\Advertisement\Gallery;
-use App\Models\User;
 use App\Traits\HttpResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use App\Models\Advertisement\Gallery;
+use App\Http\Services\ImageUploadService;
+use App\Http\Services\AdvertisementService;
+use App\Models\Advertisement\Advertisement;
+use App\Http\Requests\V1\StoreAdvertisementRequest;
+use App\Http\Resources\V1\Advertisement\AdvertisementResource;
+use App\Http\Resources\V1\Advertisement\AdvertisementListResource;
 
 class AdvertisementController extends Controller
 {
     use HttpResponse;
 
     protected AdvertisementService $advertisementService;
-    protected ImageUploadService $imageUploadService;
 
-    public function __construct(AdvertisementService $advertisementService, ImageUploadService $imageUploadService)
+    public function __construct(AdvertisementService $advertisementService)
     {
         $this->advertisementService = $advertisementService;
-        $this->imageUploadService = $imageUploadService;
     }
 
     /**
@@ -145,6 +141,9 @@ class AdvertisementController extends Controller
                 return $this->failed(null, __('messages.errors.search_too_short'), 400);
             }
 
+            // Map 'q' to the 'search' parameter expected by the service
+            $request->merge(['search' => $searchTerm]);
+
             $advertisements = $this->advertisementService->getFilteredAdvertisements($request);
 
             return $this->success([
@@ -184,7 +183,7 @@ class AdvertisementController extends Controller
     /**
      * Store a newly created advertisement.
      */
-    public function store(StoreAdvertisementRequest $request)
+    public function store(StoreAdvertisementRequest $request, ImageUploadService $imageUploadService)
     {
         try {
             DB::beginTransaction();
@@ -203,7 +202,7 @@ class AdvertisementController extends Controller
 
             // Handle main image upload if provided
             if ($request->hasFile('image')) {
-                $advertisementData['image'] = $this->imageUploadService->uploadImage($request->file('image'));
+                $advertisementData['image'] = $imageUploadService->uploadImage($request->file('image'));
             }
 
             // Create advertisement
@@ -211,7 +210,7 @@ class AdvertisementController extends Controller
 
             // Handle gallery images upload
             if ($request->hasFile('images')) {
-                $uploadedImages = $this->imageUploadService->uploadMultipleImages($request->file('images'));
+                $uploadedImages = $imageUploadService->uploadMultipleImages($request->file('images'));
                 
                 foreach ($uploadedImages as $imagePath) {
                     Gallery::create([
@@ -246,10 +245,10 @@ class AdvertisementController extends Controller
             
             // Clean up uploaded images if any error occurs
             if (isset($uploadedImages)) {
-                $this->imageUploadService->removeMultipleImages($uploadedImages);
+                $imageUploadService->removeMultipleImages($uploadedImages);
             }
             if (isset($advertisementData['image'])) {
-                $this->imageUploadService->removeImage($advertisementData['image']);
+                $imageUploadService->removeImage($advertisementData['image']);
             }
 
             return $this->failed(null, __('messages.errors.server_error'), 500);
