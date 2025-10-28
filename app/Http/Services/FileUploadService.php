@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Http\Services;
 
 use Carbon\Carbon;
 use Illuminate\Http\UploadedFile;
