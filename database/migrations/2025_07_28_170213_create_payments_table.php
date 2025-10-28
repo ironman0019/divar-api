@@ -15,14 +15,16 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('advertisement_id');
-            $table->string('amount');
-            $table->text('description')->nullable();
+            $table->decimal('amount', 10, 2)->comment('مبلغ به تومان');
+            $table->enum('payment_type', ['ladder', 'special'])->comment('نوع پرداخت: نردبان یا ویژه');
+            $table->integer('duration_days')->comment('مدت زمان به روز');
+            $table->text('description')->nullable()->comment('توضیحات');
             $table->enum('status', ['pending', 'paid', 'failed'])->default('pending');
-            $table->text('authority');
-            $table->text('ref_id')->nullable();
-            $table->text('card_pan')->nullable();
-            $table->text('trace_no')->nullable();
-            $table->text('gateway_response')->nullable();
+            $table->string('authority')->comment('شناسه درگاه');
+            $table->string('ref_id')->nullable()->comment('شناسه تراکنش');
+            $table->string('card_pan')->nullable()->comment('شماره کارت');
+            $table->string('trace_no')->nullable()->comment('شماره پیگیری');
+            $table->json('gateway_response')->nullable()->comment('پاسخ درگاه');
             $table->timestamps();
             $table->softDeletes();
             
