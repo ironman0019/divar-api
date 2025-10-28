@@ -108,4 +108,36 @@ return [
         2 => 'انتخاب',
         3 => 'چند انتخابی',
     ],
+
+    // Payment messages
+    'payments' => [
+        'prices_retrieved' => 'قیمت‌های تبلیغات با موفقیت دریافت شد',
+        'promotions_retrieved' => 'گزینه‌های تبلیغات آگهی دریافت شد',
+        'initiated' => 'پرداخت با موفقیت آغاز شد',
+        'verified_success' => 'پرداخت با موفقیت تایید شد',
+        'verified_failed' => 'پرداخت ناموفق بود',
+        'status_retrieved' => 'وضعیت پرداخت دریافت شد',
+        'history_retrieved' => 'تاریخچه پرداخت‌ها دریافت شد',
+        'not_found' => 'پرداخت مورد نظر یافت نشد',
+        'advertisement_not_active' => 'آگهی باید فعال باشد تا بتوان آن را تبلیغ کرد',
+        'price_not_found' => 'قیمت تبلیغات یافت نشد',
+        'invalid_promotion_type' => 'نوع تبلیغات نامعتبر است',
+        'invalid_duration' => 'مدت زمان نامعتبر است',
+        'payment_already_processed' => 'پرداخت قبلاً پردازش شده است',
+        'payment_failed' => 'پرداخت ناموفق بود',
+        'gateway_error' => 'خطا در درگاه پرداخت',
+    ],
+
+    // Promotion type labels
+    'promotion_types' => [
+        'ladder' => 'نردبان',
+        'special' => 'ویژه',
+    ],
+
+    // Payment status labels
+    'payment_status' => [
+        'pending' => 'در انتظار',
+        'paid' => 'پرداخت شده',
+        'failed' => 'ناموفق',
+    ],
 ];
