@@ -30,7 +30,7 @@
                 class="sidebar-item px-4 lg:px-6 py-3 text-yellow-primary bg-yellow-primary/10 border-r-3 border-yellow-primary">
                 <div class="flex items-center gap-3">
                     <i class="fas fa-tachometer-alt"></i>
-                    <span class="font-medium text-sm lg:text-base">داشبورد</span>
+                    <a class="font-medium text-sm lg:text-base" href="{{ route('admin.dashboard') }}">داشبورد</a>
                 </div>
             </div>
 
@@ -126,6 +126,26 @@
                         class="block px-8 lg:px-12 py-2 text-gray-400 hover:text-yellow-primary text-sm">تراکنش‌ها</a>
                     <a href="#"
                         class="block px-8 lg:px-12 py-2 text-gray-400 hover:text-yellow-primary text-sm">صورتحساب</a>
+                </div>
+            </div>
+
+            <!-- Menu Management -->
+            <div class="sidebar-item">
+                <div class="px-4 lg:px-6 py-3 text-gray-300 hover:text-yellow-primary cursor-pointer flex items-center justify-between"
+                    onclick="toggleDropdown('menus')">
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-bars"></i>
+                        <span class="font-medium text-sm lg:text-base">مدیریت منوها</span>
+                    </div>
+                    <i class="fas fa-chevron-down transition-transform duration-300" id="menus-arrow"></i>
+                </div>
+                <div class="hidden bg-dark-tertiary" id="menus-dropdown">
+                    <a href="{{ route('admin.menus.index') }}"
+                        class="block px-8 lg:px-12 py-2 text-gray-400 hover:text-yellow-primary text-sm">لیست
+                        منوها</a>
+                    <a href="{{ route('admin.menus.create') }}"
+                        class="block px-8 lg:px-12 py-2 text-gray-400 hover:text-yellow-primary text-sm">افزودن
+                        منو جدید</a>
                 </div>
             </div>
 
