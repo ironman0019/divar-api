@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Auth\AuthController;
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\MenuController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -17,5 +18,8 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
 
     Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
 
+    // Menu Management Routes
+    Route::resource('menus', MenuController::class);
+    Route::patch('menus/{menu}/toggle-status', [MenuController::class, 'toggleStatus'])->name('menus.toggle-status');
 
 });
