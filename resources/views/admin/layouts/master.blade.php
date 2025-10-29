@@ -19,6 +19,7 @@
 
     </div>
 
+    @include('admin.components.alert')
     @include('admin.layouts.scripts')
 </body>
 
