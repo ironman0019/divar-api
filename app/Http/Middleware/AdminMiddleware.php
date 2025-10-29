@@ -27,6 +27,6 @@ class AdminMiddleware
         }
 
         // For web routes
-        return redirect()->route('login')->with('error', 'شما دسترسی لازم را ندارید.');
+        abort(403, 'شما دسترسی لازم را ندارید.');
     }
 }
