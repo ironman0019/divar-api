@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap');
+
+* {
+    font-family: 'Vazirmatn', sans-serif;
+}
+
+.gradient-bg {
+    background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+}
+
+.glow-effect {
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+.card-hover {
+    transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
+}
+
+.sidebar-item {
+    transition: all 0.3s ease;
+}
+
+.sidebar-item:hover {
+    background: linear-gradient(90deg, rgba(255, 215, 0, 0.1) 0%, transparent 100%);
+    border-right: 3px solid #ffd700;
+}
+
+/* Mobile sidebar overlay */
+.sidebar-overlay {
+    transition: all 0.3s ease;
+}
+
+/* Table responsive styles */
+.table-container {
+    scrollbar-width: thin;
+    scrollbar-color: #ffd700 #1a1a2e;
+}
+
+.table-container::-webkit-scrollbar {
+    height: 6px;
+}
+
+.table-container::-webkit-scrollbar-track {
+    background: #1a1a2e;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    background: #ffd700;
+    border-radius: 3px;
+}
