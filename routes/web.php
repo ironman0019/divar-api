@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Auth\AuthController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\MenuController;
+use App\Http\Controllers\Admin\SettingsController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -21,5 +22,9 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
     // Menu Management Routes
     Route::resource('menus', MenuController::class);
     Route::patch('menus/{menu}/toggle-status', [MenuController::class, 'toggleStatus'])->name('menus.toggle-status');
+
+    // Settings Management Routes
+    Route::get('settings', [SettingsController::class, 'general'])->name('settings.general');
+    Route::put('settings', [SettingsController::class, 'updateGeneral'])->name('settings.update-general');
 
 });
