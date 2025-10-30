@@ -198,7 +198,7 @@ class AdvertisementController extends Controller
             // Prepare advertisement data
             $advertisementData = $request->validated();
             $advertisementData['user_id'] = $user->id;
-            $advertisementData['status'] = 1; // Enable status
+            $advertisementData['status'] = 3; // Pending status
 
             // Handle main image upload if provided
             if ($request->hasFile('image')) {
