@@ -149,25 +149,12 @@
                 </div>
             </div>
 
-            <!-- Settings Dropdown -->
-            <div class="sidebar-item">
-                <div class="px-4 lg:px-6 py-3 text-gray-300 hover:text-yellow-primary cursor-pointer flex items-center justify-between"
-                    onclick="toggleDropdown('settings')">
-                    <div class="flex items-center gap-3">
-                        <i class="fas fa-cog"></i>
-                        <span class="font-medium text-sm lg:text-base">تنظیمات</span>
-                    </div>
-                    <i class="fas fa-chevron-down transition-transform duration-300" id="settings-arrow"></i>
-                </div>
-                <div class="hidden bg-dark-tertiary" id="settings-dropdown">
-                    <a href="#"
-                        class="block px-8 lg:px-12 py-2 text-gray-400 hover:text-yellow-primary text-sm">تنظیمات
-                        عمومی</a>
-                    <a href="#"
-                        class="block px-8 lg:px-12 py-2 text-gray-400 hover:text-yellow-primary text-sm">پیکربندی</a>
-                    <a href="#"
-                        class="block px-8 lg:px-12 py-2 text-gray-400 hover:text-yellow-primary text-sm">پشتیبان‌گیری</a>
-                </div>
+            <!-- Settings -->
+            <div class="sidebar-item px-4 lg:px-6 py-3 text-gray-300 hover:text-yellow-primary cursor-pointer">
+                <a href="{{ route('admin.settings.general') }}" class="flex items-center gap-3">
+                    <i class="fas fa-cog"></i>
+                    <span class="font-medium text-sm lg:text-base">تنظیمات</span>
+                </a>
             </div>
         </nav>
 
