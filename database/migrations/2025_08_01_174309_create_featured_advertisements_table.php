@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('featured_advertisements', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('advertisement_id');
-            $table->unsignedBigInteger('payment_id');
+            $table->unsignedBigInteger('payment_id')->nullable();
             $table->enum('type', ['ladder', 'special'])->comment('نوع تبلیغ: نردبان یا ویژه');
             $table->datetime('expires_at');
             $table->boolean('is_active')->default(true);
