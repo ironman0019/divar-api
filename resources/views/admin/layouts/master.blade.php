@@ -21,6 +21,8 @@
 
     @include('admin.components.alert')
     @include('admin.layouts.scripts')
+    
+    @stack('scripts')
 </body>
 
 </html>
