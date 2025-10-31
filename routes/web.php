@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\Category\CategoryController;
 use App\Http\Controllers\Admin\Category\CategoryAttributeController;
 use App\Http\Controllers\Admin\Category\CategoryValueController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\StatisticsController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -25,6 +26,9 @@ Route::get('logout', [AuthController::class, 'logout'])->middleware('auth')->nam
 Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(function() {
 
     Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
+
+    // Statistics Routes
+    Route::get('/statistics', [StatisticsController::class, 'index'])->name('statistics.index');
 
     // Menu Management Routes
     Route::resource('menus', MenuController::class);
