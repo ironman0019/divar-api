@@ -8,6 +8,9 @@ use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\Advertisement\AdvertisementController;
 use App\Http\Controllers\Admin\Advertisement\AdvertisementStatusController;
 use App\Http\Controllers\Admin\Advertisement\AdvertisementPromotionController;
+use App\Http\Controllers\Admin\Category\CategoryController;
+use App\Http\Controllers\Admin\Category\CategoryAttributeController;
+use App\Http\Controllers\Admin\Category\CategoryValueController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -54,6 +57,43 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
         Route::delete('/featured/{featured}', [AdvertisementPromotionController::class, 'removeFeatured'])->name('remove-featured');
         Route::patch('/featured/{featured}/toggle', [AdvertisementPromotionController::class, 'toggleFeaturedStatus'])->name('toggle-featured');
         Route::patch('/featured/{featured}/extend', [AdvertisementPromotionController::class, 'extend'])->name('extend-featured');
+    });
+
+    // Category Management Routes
+    Route::prefix('categories')->name('categories.')->group(function() {
+        Route::get('/', [CategoryController::class, 'index'])->name('index');
+        Route::get('/create', [CategoryController::class, 'create'])->name('create');
+        Route::post('/', [CategoryController::class, 'store'])->name('store');
+        // Category Attributes Routes (must come before {category} routes)
+        Route::prefix('attributes')->name('attributes.')->group(function() {
+            Route::get('/', [CategoryAttributeController::class, 'index'])->name('index');
+            Route::get('/create', [CategoryAttributeController::class, 'create'])->name('create');
+            Route::post('/', [CategoryAttributeController::class, 'store'])->name('store');
+            Route::get('/{attribute}', [CategoryAttributeController::class, 'show'])->name('show');
+            Route::get('/{attribute}/edit', [CategoryAttributeController::class, 'edit'])->name('edit');
+            Route::put('/{attribute}', [CategoryAttributeController::class, 'update'])->name('update');
+            Route::delete('/{attribute}', [CategoryAttributeController::class, 'destroy'])->name('destroy');
+            Route::patch('/{attribute}/toggle-status', [CategoryAttributeController::class, 'toggleStatus'])->name('toggle-status');
+        });
+
+        // Category Values Routes
+        Route::prefix('values')->name('values.')->group(function() {
+            Route::get('/', [CategoryValueController::class, 'index'])->name('index');
+            Route::get('/create', [CategoryValueController::class, 'create'])->name('create');
+            Route::post('/', [CategoryValueController::class, 'store'])->name('store');
+            Route::get('/{value}', [CategoryValueController::class, 'show'])->name('show');
+            Route::get('/{value}/edit', [CategoryValueController::class, 'edit'])->name('edit');
+            Route::put('/{value}', [CategoryValueController::class, 'update'])->name('update');
+            Route::delete('/{value}', [CategoryValueController::class, 'destroy'])->name('destroy');
+            Route::patch('/{value}/toggle-status', [CategoryValueController::class, 'toggleStatus'])->name('toggle-status');
+        });
+        
+        // Category routes with {category} parameter (must come after specific routes)
+        Route::get('/{category}', [CategoryController::class, 'show'])->name('show');
+        Route::get('/{category}/edit', [CategoryController::class, 'edit'])->name('edit');
+        Route::put('/{category}', [CategoryController::class, 'update'])->name('update');
+        Route::delete('/{category}', [CategoryController::class, 'destroy'])->name('destroy');
+        Route::patch('/{category}/toggle-status', [CategoryController::class, 'toggleStatus'])->name('toggle-status');
     });
 
 });
