@@ -107,6 +107,24 @@
                 </div>
             </div>
 
+            <!-- Categories Dropdown -->
+            <div class="sidebar-item">
+                <div class="px-4 lg:px-6 py-3 text-gray-300 hover:text-yellow-primary cursor-pointer flex items-center justify-between"
+                    onclick="toggleDropdown('categories')">
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-folder"></i>
+                        <span class="font-medium text-sm lg:text-base">دسته‌بندی‌ها</span>
+                    </div>
+                    <i class="fas fa-chevron-down transition-transform duration-300" id="categories-arrow"></i>
+                </div>
+                <div class="hidden bg-dark-tertiary" id="categories-dropdown">
+                    <a href="{{ route('admin.categories.index') }}" class="block px-8 lg:px-12 py-2 text-gray-400 hover:text-yellow-primary text-sm">لیست دسته‌بندی‌ها</a>
+                    <a href="{{ route('admin.categories.create') }}" class="block px-8 lg:px-12 py-2 text-gray-400 hover:text-yellow-primary text-sm">افزودن دسته‌بندی جدید</a>
+                    <a href="{{ route('admin.categories.attributes.index') }}" class="block px-8 lg:px-12 py-2 text-gray-400 hover:text-yellow-primary text-sm">ویژگی‌های دسته‌بندی</a>
+                    <a href="{{ route('admin.categories.values.index') }}" class="block px-8 lg:px-12 py-2 text-gray-400 hover:text-yellow-primary text-sm">مقادیر ویژگی‌ها</a>
+                </div>
+            </div>
+
             <!-- Advertisements Dropdown -->
             <div class="sidebar-item">
                 <div class="px-4 lg:px-6 py-3 text-gray-300 hover:text-yellow-primary cursor-pointer flex items-center justify-between"
