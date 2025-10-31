@@ -45,14 +45,12 @@
                     <i class="fas fa-chevron-down transition-transform duration-300" id="users-arrow"></i>
                 </div>
                 <div class="hidden bg-dark-tertiary" id="users-dropdown">
-                    <a href="#"
+                    <a href="{{ route('admin.users.index') }}"
                         class="block px-8 lg:px-12 py-2 text-gray-400 hover:text-yellow-primary text-sm">مدیریت
                         کاربران</a>
-                    <a href="#"
+                    <a href="{{ route('admin.users.create') }}"
                         class="block px-8 lg:px-12 py-2 text-gray-400 hover:text-yellow-primary text-sm">افزودن
                         کاربر</a>
-                    <a href="#"
-                        class="block px-8 lg:px-12 py-2 text-gray-400 hover:text-yellow-primary text-sm">نقش‌ها</a>
                 </div>
             </div>
 
