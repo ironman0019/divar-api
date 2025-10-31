@@ -58,10 +58,10 @@
 
             <!-- Analytics -->
             <div class="sidebar-item px-4 lg:px-6 py-3 text-gray-300 hover:text-yellow-primary cursor-pointer">
-                <div class="flex items-center gap-3">
+                <a href="{{ route('admin.statistics.index') }}" class="flex items-center gap-3">
                     <i class="fas fa-chart-bar"></i>
                     <span class="font-medium text-sm lg:text-base">آمار و تحلیل</span>
-                </div>
+                </a>
             </div>
 
             <!-- Finance Dropdown -->
