@@ -155,7 +155,7 @@
                     <img src="https://ui-avatars.com/api/?name=Admin&background=ffd700&color=0f0f23&bold=true"
                         class="w-8 h-8 lg:w-10 lg:h-10 rounded-full">
                     <div>
-                        <p class="text-yellow-primary font-medium text-sm">ادمین سیستم</p>
+                        <p class="text-yellow-primary font-medium text-sm">ادمین سیستم: {{ $user->name }}</p>
                         <p class="text-gray-400 text-xs">آنلاین</p>
                     </div>
                 </div>
