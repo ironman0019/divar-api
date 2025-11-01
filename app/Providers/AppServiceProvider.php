@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Support\Facades\RateLimiter;
@@ -32,6 +33,11 @@ class AppServiceProvider extends ServiceProvider
 
             // Fallback: limit by IP
             return Limit::perMinutes(1, 3)->by($request->ip());
+        });
+
+        View::composer('admin.layouts.partials.sidebar', function ($view) {
+            $user = auth()->user();
+            $view->with('user', $user);
         });
 
         // Paginator::useBootstrap();
