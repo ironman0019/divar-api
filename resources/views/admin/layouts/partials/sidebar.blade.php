@@ -75,13 +75,11 @@
                     <i class="fas fa-chevron-down transition-transform duration-300" id="finance-arrow"></i>
                 </div>
                 <div class="hidden bg-dark-tertiary" id="finance-dropdown">
-                    <a href="#"
+                    <a href="{{ route('admin.payment.income-report.index') }}"
                         class="block px-8 lg:px-12 py-2 text-gray-400 hover:text-yellow-primary text-sm">گزارش
                         درآمد</a>
-                    <a href="#"
+                    <a href="{{ route('admin.payment.transactions.index') }}"
                         class="block px-8 lg:px-12 py-2 text-gray-400 hover:text-yellow-primary text-sm">تراکنش‌ها</a>
-                    <a href="#"
-                        class="block px-8 lg:px-12 py-2 text-gray-400 hover:text-yellow-primary text-sm">صورتحساب</a>
                 </div>
             </div>
 
