@@ -13,6 +13,8 @@ use App\Http\Controllers\Admin\Category\CategoryAttributeController;
 use App\Http\Controllers\Admin\Category\CategoryValueController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\StatisticsController;
+use App\Http\Controllers\Admin\Payment\IncomeReportController;
+use App\Http\Controllers\Admin\Payment\TransactionController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -112,6 +114,18 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
         Route::delete('/{user}', [UserController::class, 'destroy'])->name('destroy');
         Route::patch('/{user}/toggle-status', [UserController::class, 'toggleStatus'])->name('toggle-status');
         Route::patch('/{user}/toggle-admin', [UserController::class, 'toggleAdmin'])->name('toggle-admin');
+    });
+
+    // Payment Management Routes
+    Route::prefix('payment')->name('payment.')->group(function() {
+        // Income Report Routes
+        Route::get('/income-report', [IncomeReportController::class, 'index'])->name('income-report.index');
+        
+        // Transaction Routes
+        Route::prefix('transactions')->name('transactions.')->group(function() {
+            Route::get('/', [TransactionController::class, 'index'])->name('index');
+            Route::get('/{payment}', [TransactionController::class, 'show'])->name('show');
+        });
     });
 
 });
