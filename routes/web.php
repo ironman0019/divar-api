@@ -17,9 +17,9 @@ use App\Http\Controllers\Admin\Payment\IncomeReportController;
 use App\Http\Controllers\Admin\Payment\TransactionController;
 use App\Http\Controllers\Admin\ApiDocumentationController;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return redirect()->route('admin.dashboard');
+});
 
 Route::get('login', [AuthController::class, 'login'])->middleware('guest')->name('login');
 Route::post('login/auth', [AuthController::class, 'auth'])->middleware('guest')->name('login.auth');
