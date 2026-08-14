@@ -101,19 +101,21 @@
             <!-- Date Range -->
             <div>
                 <label class="block text-gray-300 font-medium mb-2 text-sm">از تاریخ</label>
-                <input type="date" 
-                       name="start_date" 
-                       value="{{ request('start_date') }}"
-                       class="w-full bg-dark-tertiary border border-gray-600 rounded-lg px-4 py-2 text-gray-300 focus:border-yellow-primary focus:ring-1 focus:ring-yellow-primary focus:outline-none">
+                @include('admin.components.jalali-date-input', [
+                    'name' => 'start_date',
+                    'value' => request('start_date'),
+                    'placeholder' => 'از تاریخ',
+                ])
             </div>
 
             <!-- End Date -->
             <div>
                 <label class="block text-gray-300 font-medium mb-2 text-sm">تا تاریخ</label>
-                <input type="date" 
-                       name="end_date" 
-                       value="{{ request('end_date') }}"
-                       class="w-full bg-dark-tertiary border border-gray-600 rounded-lg px-4 py-2 text-gray-300 focus:border-yellow-primary focus:ring-1 focus:ring-yellow-primary focus:outline-none">
+                @include('admin.components.jalali-date-input', [
+                    'name' => 'end_date',
+                    'value' => request('end_date'),
+                    'placeholder' => 'تا تاریخ',
+                ])
             </div>
 
             <!-- Min Amount -->
@@ -243,6 +245,7 @@
 </main>
 
 @push('scripts')
+@include('admin.components.jalali-datepicker-assets')
 <script>
     // Convert all .jalali-date elements to Persian calendar
     document.addEventListener('DOMContentLoaded', function () {

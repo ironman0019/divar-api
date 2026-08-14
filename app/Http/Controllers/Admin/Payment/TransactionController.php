@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin\Payment;
 
 use App\Http\Controllers\Controller;
 use App\Models\Payment;
+use App\Support\JalaliDate;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
 
 class TransactionController extends Controller
 {
@@ -44,11 +44,17 @@ class TransactionController extends Controller
 
         // Filter by date range
         if ($request->filled('start_date')) {
-            $query->whereDate('created_at', '>=', $request->start_date);
+            $startDate = JalaliDate::toGregorian($request->start_date);
+            if ($startDate) {
+                $query->whereDate('created_at', '>=', $startDate);
+            }
         }
 
         if ($request->filled('end_date')) {
-            $query->whereDate('created_at', '<=', $request->end_date);
+            $endDate = JalaliDate::toGregorian($request->end_date);
+            if ($endDate) {
+                $query->whereDate('created_at', '<=', $endDate);
+            }
         }
 
         // Filter by amount range

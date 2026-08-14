@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Payment;
 
 use App\Http\Controllers\Controller;
 use App\Models\Payment;
+use App\Support\JalaliDate;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -16,13 +17,8 @@ class IncomeReportController extends Controller
     public function index(Request $request)
     {
         // Date range filter (default: last 30 days)
-        $startDate = $request->filled('start_date') 
-            ? Carbon::parse($request->start_date) 
-            : Carbon::now()->subDays(30);
-        
-        $endDate = $request->filled('end_date') 
-            ? Carbon::parse($request->end_date)->endOfDay() 
-            : Carbon::now()->endOfDay();
+        $startDate = JalaliDate::toCarbon($request->start_date) ?? Carbon::now()->subDays(30);
+        $endDate = JalaliDate::toCarbon($request->end_date)?->endOfDay() ?? Carbon::now()->endOfDay();
 
         // Filter by payment type
         $paymentType = $request->get('payment_type');
