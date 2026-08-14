@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\StatisticsController;
 use App\Http\Controllers\Admin\Payment\IncomeReportController;
 use App\Http\Controllers\Admin\Payment\TransactionController;
+use App\Http\Controllers\Admin\ApiDocumentationController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -39,6 +40,9 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
     // Settings Management Routes
     Route::get('settings', [SettingsController::class, 'general'])->name('settings.general');
     Route::put('settings', [SettingsController::class, 'updateGeneral'])->name('settings.update-general');
+
+    // API Documentation
+    Route::get('api-docs', [ApiDocumentationController::class, 'index'])->name('api-docs.index');
 
     // Advertisement Management Routes
     Route::prefix('advertisements')->name('advertisements.')->group(function() {

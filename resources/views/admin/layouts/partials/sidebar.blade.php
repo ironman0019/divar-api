@@ -145,6 +145,14 @@
                     <span class="font-medium text-sm lg:text-base">تنظیمات</span>
                 </a>
             </div>
+
+            <!-- API Documentation -->
+            <div class="sidebar-item px-4 lg:px-6 py-3 text-gray-300 hover:text-yellow-primary cursor-pointer">
+                <a href="{{ route('admin.api-docs.index') }}" class="flex items-center gap-3">
+                    <i class="fas fa-book"></i>
+                    <span class="font-medium text-sm lg:text-base">مستندات API</span>
+                </a>
+            </div>
         </nav>
 
         <div class="absolute bottom-4 lg:bottom-6 right-4 lg:right-6 left-4 lg:left-6">
