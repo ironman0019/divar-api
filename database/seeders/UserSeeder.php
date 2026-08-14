@@ -13,6 +13,17 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
+        // Test admin for the admin panel (/login)
+        $admin = User::create([
+            'name' => 'ادمین سیستم',
+            'email' => 'admin@example.com',
+            'mobile' => '09000000000',
+            'password' => Hash::make('admin123'),
+            'city_id' => 1, // تهران
+            'is_active' => 1,
+        ]);
+        $admin->forceFill(['is_admin' => true])->save();
+
         $users = [
             [
                 'name' => 'احمد محمدی',
