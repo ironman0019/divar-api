@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('description');
             $table->text('ads_type')->nullable()->comment('بازی');
-            $table->text('ads_status')->default('\'as_good_as_new\'')->comment('در حد نو');
+            $table->string('ads_status')->default('as_good_as_new')->comment('در حد نو');
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('city_id');
             $table->unsignedBigInteger('user_id');
