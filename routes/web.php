@@ -15,6 +15,8 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\StatisticsController;
 use App\Http\Controllers\Admin\Payment\IncomeReportController;
 use App\Http\Controllers\Admin\Payment\TransactionController;
+use App\Http\Controllers\Admin\Payment\PromotionPriceController;
+use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\ApiDocumentationController;
 
 Route::get('/', function () {
@@ -107,6 +109,10 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
         Route::patch('/{category}/toggle-status', [CategoryController::class, 'toggleStatus'])->name('toggle-status');
     });
 
+    // City Management Routes
+    Route::resource('cities', CityController::class)->except(['show']);
+    Route::patch('cities/{city}/toggle-status', [CityController::class, 'toggleStatus'])->name('cities.toggle-status');
+
     // User Management Routes
     Route::prefix('users')->name('users.')->group(function() {
         Route::get('/', [UserController::class, 'index'])->name('index');
@@ -130,6 +136,10 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(fun
             Route::get('/', [TransactionController::class, 'index'])->name('index');
             Route::get('/{payment}', [TransactionController::class, 'show'])->name('show');
         });
+
+        Route::resource('promotion-prices', PromotionPriceController::class)->except(['show']);
+        Route::patch('promotion-prices/{promotionPrice}/toggle-status', [PromotionPriceController::class, 'toggleStatus'])
+            ->name('promotion-prices.toggle-status');
     });
 
 });
