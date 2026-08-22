@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Services\Admin\AdminNotificationService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Cache\RateLimiting\Limit;
@@ -24,6 +25,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Gate::define('viewApiDocs', function ($user = null) {
+            return $user?->is_admin === true;
+        });
+
         RateLimiter::for('otp', function (Request $request) {
             $mobile = $request->input('mobile');
 
