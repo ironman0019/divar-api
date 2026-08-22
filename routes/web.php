@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\Payment\TransactionController;
 use App\Http\Controllers\Admin\Payment\PromotionPriceController;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\ApiDocumentationController;
+use App\Http\Controllers\Admin\NotificationController;
 
 Route::get('/', function () {
     return redirect()->route('admin.dashboard');
@@ -31,6 +32,12 @@ Route::post('logout', [AuthController::class, 'logout'])->middleware('auth')->na
 Route::prefix('admin')->middleware(['auth', 'admin'])->name('admin.')->group(function() {
 
     Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
+
+    Route::prefix('notifications')->name('notifications.')->group(function () {
+        Route::get('/', [NotificationController::class, 'index'])->name('index');
+        Route::post('/mark-read', [NotificationController::class, 'markAsRead'])->name('mark-read');
+        Route::post('/mark-all-read', [NotificationController::class, 'markAllAsRead'])->name('mark-all-read');
+    });
 
     // Statistics Routes
     Route::get('/statistics', [StatisticsController::class, 'index'])->name('statistics.index');
