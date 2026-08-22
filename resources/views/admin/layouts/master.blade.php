@@ -14,7 +14,9 @@
         
         @include('admin.layouts.partials.header')
 
-        @yield('content')
+        <div id="admin-page-content">
+            @yield('content')
+        </div>
 
 
     </div>
