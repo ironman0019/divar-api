@@ -80,6 +80,8 @@
                         درآمد</a>
                     <a href="{{ route('admin.payment.transactions.index') }}"
                         class="block px-8 lg:px-12 py-2 text-gray-400 hover:text-yellow-primary text-sm">تراکنش‌ها</a>
+                    <a href="{{ route('admin.payment.promotion-prices.index') }}"
+                        class="block px-8 lg:px-12 py-2 text-gray-400 hover:text-yellow-primary text-sm">تعرفه تبلیغات</a>
                 </div>
             </div>
 
@@ -119,6 +121,14 @@
                     <a href="{{ route('admin.categories.attributes.index') }}" class="block px-8 lg:px-12 py-2 text-gray-400 hover:text-yellow-primary text-sm">ویژگی‌های دسته‌بندی</a>
                     <a href="{{ route('admin.categories.values.index') }}" class="block px-8 lg:px-12 py-2 text-gray-400 hover:text-yellow-primary text-sm">مقادیر ویژگی‌ها</a>
                 </div>
+            </div>
+
+            <!-- Cities -->
+            <div class="sidebar-item px-4 lg:px-6 py-3 text-gray-300 hover:text-yellow-primary cursor-pointer">
+                <a href="{{ route('admin.cities.index') }}" class="flex items-center gap-3">
+                    <i class="fas fa-city"></i>
+                    <span class="font-medium text-sm lg:text-base">شهرها</span>
+                </a>
             </div>
 
             <!-- Advertisements Dropdown -->
