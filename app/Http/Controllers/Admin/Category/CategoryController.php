@@ -7,6 +7,7 @@ use App\Models\Category\Category;
 use App\Http\Requests\Category\StoreCategoryRequest;
 use App\Http\Requests\Category\UpdateCategoryRequest;
 use App\Http\Services\ImageUploadService;
+use App\Support\CatalogCache;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -85,6 +86,8 @@ class CategoryController extends Controller
 
         Category::create($data);
 
+        CatalogCache::forgetCategories();
+
         return redirect()->route('admin.categories.index')
             ->with('success', 'دسته‌بندی با موفقیت ایجاد شد.');
     }
@@ -131,6 +134,8 @@ class CategoryController extends Controller
 
         $category->update($data);
 
+        CatalogCache::forgetCategories();
+
         return redirect()->route('admin.categories.index')
             ->with('success', 'دسته‌بندی با موفقیت به‌روزرسانی شد.');
     }
@@ -147,6 +152,8 @@ class CategoryController extends Controller
 
         $category->delete();
 
+        CatalogCache::forgetCategories();
+
         return redirect()->route('admin.categories.index')
             ->with('success', 'دسته‌بندی با موفقیت حذف شد.');
     }
@@ -157,6 +164,8 @@ class CategoryController extends Controller
     public function toggleStatus(Category $category)
     {
         $category->update(['status' => !$category->status]);
+
+        CatalogCache::forgetCategories();
 
         $status = $category->status ? 'فعال' : 'غیرفعال';
 

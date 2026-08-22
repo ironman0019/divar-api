@@ -7,6 +7,7 @@ use App\Models\Category\CategoryAttribute;
 use App\Models\Category\CategoryValue;
 use App\Http\Requests\Category\StoreCategoryValueRequest;
 use App\Http\Requests\Category\UpdateCategoryValueRequest;
+use App\Support\CatalogCache;
 use Illuminate\Http\Request;
 
 class CategoryValueController extends Controller
@@ -71,6 +72,8 @@ class CategoryValueController extends Controller
 
         CategoryValue::create($data);
 
+        CatalogCache::forgetCategories();
+
         return redirect()->route('admin.categories.values.index')
             ->with('success', 'مقدار ویژگی با موفقیت ایجاد شد.');
     }
@@ -110,6 +113,8 @@ class CategoryValueController extends Controller
 
         $value->update($data);
 
+        CatalogCache::forgetCategories();
+
         return redirect()->route('admin.categories.values.index')
             ->with('success', 'مقدار ویژگی با موفقیت به‌روزرسانی شد.');
     }
@@ -121,6 +126,8 @@ class CategoryValueController extends Controller
     {
         $value->delete();
 
+        CatalogCache::forgetCategories();
+
         return redirect()->route('admin.categories.values.index')
             ->with('success', 'مقدار ویژگی با موفقیت حذف شد.');
     }
@@ -131,6 +138,8 @@ class CategoryValueController extends Controller
     public function toggleStatus(CategoryValue $value)
     {
         $value->update(['status' => !$value->status]);
+
+        CatalogCache::forgetCategories();
 
         $status = $value->status ? 'فعال' : 'غیرفعال';
 

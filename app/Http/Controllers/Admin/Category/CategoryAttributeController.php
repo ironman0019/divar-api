@@ -7,6 +7,7 @@ use App\Models\Category\Category;
 use App\Models\Category\CategoryAttribute;
 use App\Http\Requests\Category\StoreCategoryAttributeRequest;
 use App\Http\Requests\Category\UpdateCategoryAttributeRequest;
+use App\Support\CatalogCache;
 use Illuminate\Http\Request;
 
 class CategoryAttributeController extends Controller
@@ -68,6 +69,8 @@ class CategoryAttributeController extends Controller
 
         CategoryAttribute::create($data);
 
+        CatalogCache::forgetCategories();
+
         return redirect()->route('admin.categories.attributes.index')
             ->with('success', 'ویژگی دسته‌بندی با موفقیت ایجاد شد.');
     }
@@ -102,6 +105,8 @@ class CategoryAttributeController extends Controller
 
         $attribute->update($data);
 
+        CatalogCache::forgetCategories();
+
         return redirect()->route('admin.categories.attributes.index')
             ->with('success', 'ویژگی دسته‌بندی با موفقیت به‌روزرسانی شد.');
     }
@@ -113,6 +118,8 @@ class CategoryAttributeController extends Controller
     {
         $attribute->delete();
 
+        CatalogCache::forgetCategories();
+
         return redirect()->route('admin.categories.attributes.index')
             ->with('success', 'ویژگی دسته‌بندی با موفقیت حذف شد.');
     }
@@ -123,6 +130,8 @@ class CategoryAttributeController extends Controller
     public function toggleStatus(CategoryAttribute $attribute)
     {
         $attribute->update(['status' => !$attribute->status]);
+
+        CatalogCache::forgetCategories();
 
         $status = $attribute->status ? 'فعال' : 'غیرفعال';
 

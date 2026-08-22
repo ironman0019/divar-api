@@ -10,6 +10,7 @@ use App\Http\Services\Payment\PaymentService;
 use App\Http\Services\AdvertisementPromotionService;
 use App\Models\Advertisement\Advertisement;
 use App\Models\Advertisement\PromotionPrice;
+use App\Support\CatalogCache;
 use App\Http\Resources\V1\Payment\PromotionPriceResource;
 use App\Http\Resources\V1\Payment\PaymentResource;
 use Illuminate\Support\Facades\Validator;
@@ -35,10 +36,7 @@ class PaymentController extends Controller
     public function getPromotionPrices(): JsonResponse
     {
         try {
-            $promotionPrices = PromotionPrice::active()
-                ->orderBy('type')
-                ->orderBy('duration_days')
-                ->get();
+            $promotionPrices = CatalogCache::activePromotionPrices();
 
             return $this->success([
                 'promotion_prices' => PromotionPriceResource::collection($promotionPrices),

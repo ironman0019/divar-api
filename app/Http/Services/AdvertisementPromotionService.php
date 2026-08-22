@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Models\Advertisement\Advertisement;
 use App\Models\Advertisement\PromotionPrice;
+use App\Support\CatalogCache;
 use App\Models\Advertisement\FeaturedAdvertisement;
 
 class AdvertisementPromotionService
@@ -29,10 +30,7 @@ class AdvertisementPromotionService
         }
 
         // Get all active promotion prices
-        $promotionPrices = PromotionPrice::active()
-            ->orderBy('type')
-            ->orderBy('duration_days')
-            ->get();
+        $promotionPrices = CatalogCache::activePromotionPrices();
 
         // Group by type
         $groupedPrices = $promotionPrices->groupBy('type');

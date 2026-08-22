@@ -4,9 +4,8 @@ namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\CityResource;
-use App\Models\City;
+use App\Support\CatalogCache;
 use App\Traits\HttpResponse;
-use Illuminate\Http\Request;
 
 class CityController extends Controller
 {
@@ -14,7 +13,8 @@ class CityController extends Controller
 
     public function index()
     {
-        $cities = City::all();
+        $cities = CatalogCache::activeCities();
+
         return $this->success(
             CityResource::collection($cities),
             __('messages.cities.retrieved')
