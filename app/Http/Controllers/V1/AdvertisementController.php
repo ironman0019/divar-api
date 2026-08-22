@@ -78,6 +78,7 @@ class AdvertisementController extends Controller
 
             // Increment view count
             $this->advertisementService->incrementView($advertisement);
+            $advertisement->view = $this->advertisementService->getDisplayViewCount($advertisement);
 
             // Get related advertisements
             $relatedAdvertisements = $this->advertisementService->getRelatedAdvertisements($advertisement);

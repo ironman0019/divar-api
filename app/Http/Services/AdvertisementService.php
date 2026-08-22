@@ -187,6 +187,12 @@ class AdvertisementService
         $advertisement->incrementView();
     }
 
+    public function getDisplayViewCount(Advertisement $advertisement): int
+    {
+        return app(\App\Http\Services\AdvertisementViewCounter::class)
+            ->totalViews((int) $advertisement->view, $advertisement->id);
+    }
+
     /**
      * Get filter options for the frontend.
      */

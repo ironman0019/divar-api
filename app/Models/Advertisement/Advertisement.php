@@ -276,10 +276,10 @@ class Advertisement extends Model
     }
 
     /**
-     * Increment view count.
+     * Increment view count in Redis buffer.
      */
     public function incrementView()
     {
-        $this->increment('view');
+        app(\App\Http\Services\AdvertisementViewCounter::class)->increment($this->id);
     }
 }
