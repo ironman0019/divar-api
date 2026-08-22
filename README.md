@@ -140,7 +140,7 @@ ZARINPAL_SANDBOX=true
 ZARINPAL_CALLBACK_URL=http://127.0.0.1:8000/api/V1/payment/callback
 ```
 
-SMS credentials are read from `config('sms.*')` (username, password, from, pattern_id). Add a `config/sms.php` (or equivalent) and matching `.env` keys before using OTP SMS in production.
+SMS credentials are read from `config('sms.*')` (`SMS_USERNAME`, `SMS_PASSWORD`, `SMS_FROM`). OTP is sent as plain text via Melipayamak `SendSimpleSMS2` (no pattern ID). Set those `.env` keys before using OTP SMS in production.
 
 ## Redis usage in this project
 
